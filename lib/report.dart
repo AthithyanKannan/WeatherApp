@@ -87,7 +87,10 @@ class _ReportState extends State<Report> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text('Chennai',
+                    Text(
+                        weatherData.isNotEmpty
+                            ? '${weatherData['location']['name']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             color: Colors.white,
                             fontSize: 35,
@@ -95,20 +98,37 @@ class _ReportState extends State<Report> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(weatherData.isNotEmpty ? weatherData['location']['name'] : 'Loading...',
+                    Text(
+                        weatherData.isNotEmpty
+                            ? '${weatherData['location']['localtime']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w300)),
                     const SizedBox(height: 10),
-                    Image.asset(
-                      'assets/sunny1.png',
+                    Image.network(
+                      weatherData.isNotEmpty &&
+                              weatherData['current']['condition']['icon'] !=
+                                  null
+                          ? 'https:'+ weatherData['current']['condition']['icon']
+                          : 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                       height: 100,
                     ),
+
+                    // Image.network(
+                    //   weatherData.isNotEmpty
+                    //       ? weatherData['current']['condition']['icon']
+                    //       : Image.network('https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                    //   height: 100,
+                    // ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text("Sunny",
+                    Text(
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['condition']['text']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             color: Colors.white, fontSize: 40)),
                     const SizedBox(
@@ -118,7 +138,9 @@ class _ReportState extends State<Report> {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: '17',
+                            text: weatherData.isNotEmpty
+                                ? '${weatherData['current']['temp_c']}'
+                                : 'Loading...',
                             style: GoogleFonts.sourceSansPro(fontSize: 35),
                           ),
                           TextSpan(
@@ -150,7 +172,9 @@ class _ReportState extends State<Report> {
                               height: 10,
                             ),
                             Text(
-                              '19.1 km/h',
+                              weatherData.isNotEmpty
+                                  ? '${weatherData['current']['wind_kph']}'
+                                  : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
                                   fontSize: 18, color: Colors.white),
                             ),
@@ -175,7 +199,9 @@ class _ReportState extends State<Report> {
                               height: 10,
                             ),
                             Text(
-                              '81',
+                              weatherData.isNotEmpty
+                                  ? '${weatherData['current']['cloud']}'
+                                  : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
                                   fontSize: 18, color: Colors.white),
                             ),
@@ -200,7 +226,9 @@ class _ReportState extends State<Report> {
                               height: 10,
                             ),
                             Text(
-                              'SE',
+                              weatherData.isNotEmpty
+                                  ? '${weatherData['current']['wind_dir']}'
+                                  : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
                                   fontSize: 18, color: Colors.white),
                             ),
@@ -208,7 +236,7 @@ class _ReportState extends State<Report> {
                               height: 10,
                             ),
                             Text(
-                              ' Direction',
+                              'Direction',
                               style: GoogleFonts.sourceSansPro(
                                   fontSize: 18, color: Colors.white),
                             )
@@ -234,7 +262,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '32.0 kp/h',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['gust_kph']}'
+                            : 'Loading',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.white),
                       ),
@@ -252,7 +282,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '1.0',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['uv']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.white),
                       ),
@@ -270,7 +302,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '19.1 km/h',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['wind_kph']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.white),
                       ),
@@ -295,7 +329,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '1025.0hpa',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['pressure_mb']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.white),
                       ),
@@ -313,7 +349,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '0.0',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['precip_mm']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.white),
                       ),
@@ -331,7 +369,9 @@ class _ReportState extends State<Report> {
                         height: 5,
                       ),
                       Text(
-                        '2022-03-20 21:30',
+                        weatherData.isNotEmpty
+                            ? '${weatherData['current']['last_updated']}'
+                            : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 18, color: Colors.green[700]),
                       ),
