@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> fetchWeatherData() async {
   final apiKey = 'c5df3c967ade4911a9e122939232805';
-  final cityName = 'Uttamapalaiyam';
+  final cityName = 'Chennai';
 
   final url = Uri.parse('https://api.weatherapi.com/v1/current.json?key=$apiKey&q=$cityName');
   final response = await http.get(url);

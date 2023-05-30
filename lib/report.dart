@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'getData.dart';
 
+bool swiftcolor = false;
+
 class Report extends StatefulWidget {
   final String name;
   Report({required this.name, super.key});
@@ -29,14 +31,16 @@ class _ReportState extends State<Report> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor:
+            swiftcolor ? lightThemeBackgroundColor : darkThemeBackgroundColor,
         appBar: AppBar(
           title: RichText(
             text: TextSpan(
                 text: 'Hi ',
-                style: const TextStyle(
+                style:  TextStyle(
                   fontFamily: 'Opens Sans',
                   fontSize: 20,
+                  color: swiftcolor ? Colors.black : Colors.black
                 ),
                 children: [
                   TextSpan(
@@ -45,8 +49,19 @@ class _ReportState extends State<Report> {
                           fontWeight: FontWeight.bold))
                 ]),
           ),
-          backgroundColor: backgroundColor,
+          backgroundColor:
+              swiftcolor ? lightThemeBackgroundColor : darkThemeBackgroundColor,
           elevation: 0.0,
+          actions: [
+            Switch(
+              value: swiftcolor,
+              onChanged: (value) {
+                setState(() {
+                  swiftcolor = value;
+                });
+              },
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -61,7 +76,7 @@ class _ReportState extends State<Report> {
                   "Today's Report",
                   style: GoogleFonts.sourceSansPro(
                     fontSize: 25,
-                    color: Colors.white,
+                    color: swiftcolor ? Colors.white : Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -70,18 +85,26 @@ class _ReportState extends State<Report> {
                 height: 20,
               ),
               Container(
-                height: size.height * 0.60,
+                height: size.height * 0.50,
                 width: size.width,
                 margin: const EdgeInsets.only(right: 15, left: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    gradient: const LinearGradient(
-                        colors: [
-                          Color.fromRGBO(20, 136, 204, 1.0),
-                          Color.fromRGBO(43, 50, 178, 1.0)
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight)),
+                    gradient: swiftcolor
+                        ? const LinearGradient(
+                            colors: [
+                                Color.fromRGBO(0, 0, 0, 1.0),
+                                Color.fromRGBO(67, 67, 67, 1.0)
+                              ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight)
+                        : const LinearGradient(
+                            colors: [
+                                Color.fromRGBO(20, 136, 204, 1.0),
+                                Color.fromRGBO(43, 50, 178, 1.0)
+                              ],
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight)),
                 child: Column(
                   children: [
                     const SizedBox(
@@ -92,8 +115,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['location']['name']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            color: Colors.white,
-                            fontSize: 35,
+                            color: swiftcolor ? Colors.white : Colors.white,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(
                       height: 5,
@@ -103,7 +126,7 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['location']['localtime']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            color: Colors.white,
+                            color: swiftcolor ? Colors.white : Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w300)),
                     const SizedBox(height: 10),
@@ -111,9 +134,10 @@ class _ReportState extends State<Report> {
                       weatherData.isNotEmpty &&
                               weatherData['current']['condition']['icon'] !=
                                   null
-                          ? 'https:'+ weatherData['current']['condition']['icon']
+                          ? 'https:' +
+                              weatherData['current']['condition']['icon']
                           : 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                      height: 100,
+                      height: 50,
                     ),
 
                     // Image.network(
@@ -130,7 +154,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['condition']['text']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            color: Colors.white, fontSize: 40)),
+                            color: swiftcolor ? Colors.white : Colors.white,
+                            fontSize: 20)),
                     const SizedBox(
                       height: 5,
                     ),
@@ -165,7 +190,7 @@ class _ReportState extends State<Report> {
                           children: [
                             Image.asset(
                               'assets/wind.png',
-                              color: Colors.white,
+                              color: swiftcolor ? Colors.white : Colors.white,
                               width: size.width * 0.10,
                             ),
                             const SizedBox(

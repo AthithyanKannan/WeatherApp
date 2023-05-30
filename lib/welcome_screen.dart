@@ -4,7 +4,7 @@ import 'package:weather_app/report.dart';
 import 'colors.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+   WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -15,7 +15,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: darkThemeBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -93,7 +93,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            Report(name: namecontroller.text.trim()),
+                            Report(
+                              name: namecontroller.text.trim(),
+                            ),
                       ),
                       (route) => false);
                 }

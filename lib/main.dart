@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:weather_app/welcome_screen.dart';
 
+  bool swiftcolor = false;
+
 void main(List<String> args) {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent));
@@ -15,10 +17,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  ThemeData dark = ThemeData(brightness: Brightness.dark);
+  ThemeData light  = ThemeData(brightness: Brightness.light);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen());
+      home:  WelcomeScreen());
   }
 }
