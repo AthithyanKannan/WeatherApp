@@ -1,4 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'getData.dart';
@@ -7,28 +10,29 @@ bool swiftcolor = false;
 
 class Report extends StatefulWidget {
   final String name;
-  Report({required this.name, super.key});
+  const Report({required this.name, super.key});
 
   @override
   State<Report> createState() => _ReportState();
 }
 
 class _ReportState extends State<Report> {
-  late Map<String, dynamic> weatherData = {};
-  @override
-  void initState() {
-    super.initState();
-    fetchWeatherData().then((data) {
-      setState(() {
-        weatherData = data;
-      });
-    }).catchError((error) {
-      print('Error fetching weather data: $error');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    late Map<String, dynamic> weatherData = {};
+
+    @override
+    void initState() {
+      super.initState();
+      fetchWeatherData().then((data) {
+        setState(() {
+          weatherData = data;
+        });
+      }).catchError((error) {
+        print('Error fetching weather data: $error');
+      });
+    }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor:
@@ -37,11 +41,10 @@ class _ReportState extends State<Report> {
           title: RichText(
             text: TextSpan(
                 text: 'Hi ',
-                style:  TextStyle(
-                  fontFamily: 'Opens Sans',
-                  fontSize: 20,
-                  color: swiftcolor ? Colors.black : Colors.white
-                ),
+                style: TextStyle(
+                    fontFamily: 'Opens Sans',
+                    fontSize: 20,
+                    color: swiftcolor ? Colors.black : Colors.white),
                 children: [
                   TextSpan(
                       text: widget.name + '!',
@@ -53,26 +56,24 @@ class _ReportState extends State<Report> {
               swiftcolor ? lightThemeBackgroundColor : darkThemeBackgroundColor,
           elevation: 0.0,
           actions: [
-             Icon(
-              Icons.dark_mode,
-              color: swiftcolor ? Colors.black : Colors.white
-              ),
+            Icon(Icons.dark_mode,
+                color: swiftcolor ? Colors.black : Colors.white),
             Switch(
               value: swiftcolor,
-            activeColor: Colors.black,
-            activeTrackColor: Colors.grey,
-            inactiveThumbColor: Colors.white,
-            inactiveTrackColor: Colors.grey,
+              activeColor: Colors.black,
+              activeTrackColor: Colors.grey,
+              inactiveThumbColor: Colors.white,
+              inactiveTrackColor: Colors.grey,
               onChanged: (value) {
                 setState(() {
                   swiftcolor = value;
                 });
               },
             ),
-             Icon(
+            Icon(
               Icons.light_mode,
               color: swiftcolor ? Colors.black : Colors.white,
-              ),
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -146,7 +147,7 @@ class _ReportState extends State<Report> {
                       weatherData.isNotEmpty &&
                               weatherData['current']['condition']['icon'] !=
                                   null
-                          ?  'https:' +
+                          ? 'https:' +
                               weatherData['current']['condition']['icon']
                           : 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
                       height: 50,
@@ -286,7 +287,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'Gust',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,
@@ -296,7 +298,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['gust_kph']}'
                             : 'Loading',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color:swiftcolor ? Colors.black38 : Colors.grey),
+                            fontSize: 18,
+                            color: swiftcolor ? Colors.black38 : Colors.grey),
                       ),
                     ],
                   )),
@@ -306,7 +309,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'UV',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,
@@ -316,7 +320,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['uv']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color:swiftcolor ? Colors.black38 : Colors.grey),
+                            fontSize: 18,
+                            color: swiftcolor ? Colors.black38 : Colors.grey),
                       ),
                     ],
                   )),
@@ -326,7 +331,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'Wind',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,
@@ -336,7 +342,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['wind_kph']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color:swiftcolor ? Colors.black38 : Colors.grey),
+                            fontSize: 18,
+                            color: swiftcolor ? Colors.black38 : Colors.grey),
                       ),
                     ],
                   )),
@@ -353,7 +360,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'Pressure',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,
@@ -363,7 +371,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['pressure_mb']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color:swiftcolor ? Colors.black38 : Colors.grey),
+                            fontSize: 18,
+                            color: swiftcolor ? Colors.black38 : Colors.grey),
                       ),
                     ],
                   )),
@@ -373,7 +382,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'Precipitation',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,
@@ -383,7 +393,8 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['precip_mm']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color:swiftcolor ? Colors.black38 : Colors.grey),
+                            fontSize: 18,
+                            color: swiftcolor ? Colors.black38 : Colors.grey),
                       ),
                     ],
                   )),
@@ -393,7 +404,8 @@ class _ReportState extends State<Report> {
                       Text(
                         'Last Update',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 15, color:swiftcolor ? Colors.black : Colors.grey),
+                            fontSize: 15,
+                            color: swiftcolor ? Colors.black : Colors.grey),
                       ),
                       const SizedBox(
                         height: 5,

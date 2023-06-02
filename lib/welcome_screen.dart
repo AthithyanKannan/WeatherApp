@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_app/report.dart';
 import 'colors.dart';
 
 class WelcomeScreen extends StatefulWidget {
-   WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -12,6 +14,37 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   TextEditingController namecontroller = TextEditingController();
+  var longitude;
+  var latitude;
+  @override
+  void initState() {
+    // TODO: implement initState
+    getLocation();
+    super.initState();
+  }
+
+  void getLocation() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    longitude = position.longitude;
+    latitude = position.latitude;
+    convertCoordinatesToAddress(latitude,longitude);
+  }
+
+  void convertCoordinatesToAddress(double latitude, double longitude) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latitude, longitude);
+
+    if (placemarks != null && placemarks.isNotEmpty) {
+      Placemark placemark = placemarks[0];
+      String address =
+          '${placemark.street}, ${placemark.locality}, ${placemark.country}';
+      print(address);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +68,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(
               height: 25.0,
             ),
-             Text(
+            Text(
               "Discover the Weather",
               style: GoogleFonts.sourceSansPro(
                   color: Colors.white,
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold),
             ),
-             Text(
+            Text(
               "in Your City",
               style: GoogleFonts.sourceSansPro(
                   color: Colors.white,
@@ -52,7 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(
               height: 15.0,
             ),
-             Text(
+            Text(
               "Get to know your weather maps and",
               style: GoogleFonts.sourceSansPro(
                   color: Colors.grey,
@@ -62,7 +95,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(
               height: 5.0,
             ),
-             Text(
+            Text(
               "radar precipatation forecase",
               style: GoogleFonts.sourceSansPro(
                   color: Colors.grey,
@@ -92,10 +125,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            Report(
-                              name: namecontroller.text.trim(),
-                            ),
+                        builder: (context) => Report(
+                          name: namecontroller.text.trim(),
+                        ),
                       ),
                       (route) => false);
                 }
