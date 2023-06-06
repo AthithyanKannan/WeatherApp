@@ -24,7 +24,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     getLocation();
     super.initState();
   }
-
+  
   void getLocation() async {
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
@@ -34,11 +34,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     latitude = position.latitude;
     convertCoordinatesToAddress(latitude,longitude);
   }
-
+  
   void convertCoordinatesToAddress(double latitude, double longitude) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(latitude, longitude);
-
+  
     if (placemarks != null && placemarks.isNotEmpty) {
       Placemark placemark = placemarks[0];
       String address =

@@ -1,7 +1,5 @@
-import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'getData.dart';
@@ -16,10 +14,9 @@ class Report extends StatefulWidget {
   State<Report> createState() => _ReportState();
 }
 
+
 class _ReportState extends State<Report> {
-  @override
-  Widget build(BuildContext context) {
-    late Map<String, dynamic> weatherData = {};
+      late Map<String, dynamic> weatherData = {};
 
     @override
     void initState() {
@@ -32,6 +29,9 @@ class _ReportState extends State<Report> {
         print('Error fetching weather data: $error');
       });
     }
+
+  @override
+  Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -55,6 +55,7 @@ class _ReportState extends State<Report> {
           backgroundColor:
               swiftcolor ? lightThemeBackgroundColor : darkThemeBackgroundColor,
           elevation: 0.0,
+
           actions: [
             Icon(Icons.dark_mode,
                 color: swiftcolor ? Colors.black : Colors.white),
@@ -88,7 +89,7 @@ class _ReportState extends State<Report> {
                 child: Text(
                   "Today's Report",
                   style: GoogleFonts.sourceSansPro(
-                    fontSize: 25,
+                    fontSize: 21,
                     color: swiftcolor ? Colors.black : Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -100,7 +101,7 @@ class _ReportState extends State<Report> {
               Container(
                 height: size.height * 0.50,
                 width: size.width,
-                margin: const EdgeInsets.only(right: 20, left: 20),
+                margin: const EdgeInsets.only(right: 30, left: 30),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
                     gradient: swiftcolor
@@ -113,8 +114,8 @@ class _ReportState extends State<Report> {
                             end: Alignment.centerRight)
                         : const LinearGradient(
                             colors: [
-                                Color.fromRGBO(20, 136, 204, 1.0),
-                                Color.fromRGBO(43, 50, 178, 1.0)
+                                Color.fromRGBO(93,65,87, 1.0),
+                                Color.fromRGBO(168,202,186, 1.0)
                               ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight)),
@@ -129,7 +130,7 @@ class _ReportState extends State<Report> {
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             color: swiftcolor ? Colors.white : Colors.white,
-                            fontSize: 30,
+                            fontSize: 23,
                             fontWeight: FontWeight.bold)),
                     const SizedBox(
                       height: 5,
@@ -161,7 +162,7 @@ class _ReportState extends State<Report> {
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
                             color: swiftcolor ? Colors.white : Colors.white,
-                            fontSize: 20)),
+                            fontSize: 25)),
                     const SizedBox(
                       height: 15,
                     ),
@@ -197,7 +198,7 @@ class _ReportState extends State<Report> {
                             Image.asset(
                               'assets/wind.png',
                               color: swiftcolor ? Colors.white : Colors.white,
-                              width: size.width * 0.10,
+                              width: size.width * 0.08,
                             ),
                             const SizedBox(
                               height: 10,
@@ -207,7 +208,7 @@ class _ReportState extends State<Report> {
                                   ? '${weatherData['current']['wind_kph']}'
                                   : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             ),
                             const SizedBox(
                               height: 10,
@@ -215,7 +216,7 @@ class _ReportState extends State<Report> {
                             Text(
                               'Wind',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             )
                           ],
                         )),
@@ -224,7 +225,7 @@ class _ReportState extends State<Report> {
                           children: [
                             Image.asset(
                               'assets/cloudy.png',
-                              width: size.width * 0.10,
+                              width: size.width * 0.08,
                             ),
                             const SizedBox(
                               height: 10,
@@ -234,7 +235,7 @@ class _ReportState extends State<Report> {
                                   ? '${weatherData['current']['cloud']}'
                                   : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             ),
                             const SizedBox(
                               height: 10,
@@ -242,7 +243,7 @@ class _ReportState extends State<Report> {
                             Text(
                               'Humidity',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             )
                           ],
                         )),
@@ -251,7 +252,7 @@ class _ReportState extends State<Report> {
                           children: [
                             Image.asset(
                               'assets/winddirection.png',
-                              width: size.width * 0.10,
+                              width: size.width * 0.08,
                             ),
                             const SizedBox(
                               height: 10,
@@ -261,7 +262,7 @@ class _ReportState extends State<Report> {
                                   ? '${weatherData['current']['wind_dir']}'
                                   : 'Loading...',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             ),
                             const SizedBox(
                               height: 10,
@@ -269,7 +270,7 @@ class _ReportState extends State<Report> {
                             Text(
                               'Direction',
                               style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 15, color: Colors.white),
                             )
                           ],
                         ))
@@ -415,7 +416,7 @@ class _ReportState extends State<Report> {
                             ? '${weatherData['current']['last_updated']}'
                             : 'Loading...',
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: 18, color: Colors.green[700]),
+                            fontSize: 15, color: Colors.green[700]),
                       ),
                     ],
                   )),

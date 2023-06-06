@@ -39,6 +39,14 @@ dependencies:
   geolocator: ^9.0.2
   http: ^0.13.6
   geocoding: ^2.1.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  image_path: "assets/weatherappicon.png"
+  android: true
+  ios: false
+
+
 
 dev_dependencies:
   flutter_test:
